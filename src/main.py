@@ -10,7 +10,7 @@ import hashlib,string,json,datetime
 Da bi uopste radilo prvo morate da pokrenete fajl server_console.bat 
 u njemu "cd src" pa "python main.py"
 """
-client = MongoClient('mongodb+srv://admin:<admin>@cluster0-mwhyq.mongodb.net/<db_fitness>?retryWrites=true&w=majority') #ovo je konekcioni
+client = MongoClient('mongodb+srv://name:<paswword>@cluster0-mwhyq.mongodb.net/<baza>?retryWrites=true&w=majority') #ovo je konekcioni
 #string za povezivanje na mongo 
 db = client.get_database("db_fitness") #vasa baza
 kupljeni = db.kupljeni_proizvodi #
