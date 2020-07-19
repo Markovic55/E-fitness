@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<title> Your Profile </title>
+		<style>
+		body{
+  background: darkkhaki;
+}
+	
+		
+		.card {
+			background-color: gray;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  float: left;
+  padding: 3%;
+  margin-left: 1%;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+		
+		</style>
+	</head>
+	<body>
+
+		
+		
+		
+		{% for item in items %}
+		<div class="card">
+			<img src="../static/img/{{item['name']}}.png" width="100px" height="100px"><br><br>
+			<a href = '/items/{{item["_id"]}}'> {{item['name']}} </a>
+			<p >Cena:{{item['price']}}din</p>
+			<p>Opis: {{item['desc']}}  </p>
+			<p>Kolicina: {{item['qtt']}}  </p>
+			<p>Vistis: {{item['visits']}}  </p>
+			
+		  </div> 
+		  {% endfor %}
+	</body>
+</html>

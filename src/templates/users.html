@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<title> Your Profile </title>
+		
+	</head>
+	<body>
+		{% if user == 'admin'%}
+		Svi korisnici:<br>
+
+		{% for user in users %}
+		<a href = '/users/{{user["_id"]}}'> {{user['username']}} </a><br>
+		{% endfor %}
+		{% else %}
+			Ovoj stranici samo admin pristupa!
+		{% endif %}
+	</body>
+</html>

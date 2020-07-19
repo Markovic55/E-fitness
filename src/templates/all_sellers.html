@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<title> Your Profile </title>
+		<style>
+			body{
+	  background: darkkhaki;
+	}
+		
+			
+			.card {
+				background-color: gray;
+	  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	  max-width: 300px;
+	  margin: auto;
+	  text-align: center;
+	  font-family: arial;
+	  float: left;
+	  padding: 3%;
+	  margin-left: 1%;
+	}
+	
+	.price {
+	  color: grey;
+	  font-size: 22px;
+	}
+	
+	.card button {
+	  border: none;
+	  outline: 0;
+	  padding: 12px;
+	  color: white;
+	  background-color: #000;
+	  text-align: center;
+	  cursor: pointer;
+	  width: 100%;
+	  font-size: 18px;
+	}
+	
+	.card button:hover {
+	  opacity: 0.7;
+	}
+			
+			</style>
+	</head>
+	<body>
+
+		<h3 style="margin-left: 10%; font-size: 30px; color: blue ">Svi prodavci</h3>
+		<br>
+		{% for user in users %}
+		<br>
+
+		<div class="card">
+			
+			<a href = '/sellers/{{user["_id"]}}'> {{user['ime']}} {{user['prezime']}} </a><br>
+				<p>Email: {{user['username']}}</p><br>
+				<p>Adresa: {{user['adresa']}} </p><br>
+				<p>Naziv kompanije: {{user['kompanija']}}</p><br>
+		
+			
+		  </div> 
+
+		{% endfor %}
+	</body>
+</html>
+
+

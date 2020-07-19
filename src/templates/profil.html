@@ -1,0 +1,222 @@
+<html>
+	<head>
+		<title> Your Profile </title>
+		<style>
+		
+		body{
+  background: darkkhaki;
+}
+		td {
+			border: solid thin black;
+		}
+		
+		th {
+			border: solid thin black;
+		}
+		
+		table {
+			border: solid thin black;
+			border-collapse: collapse;
+			
+		}
+		
+		.card {
+			background-color: lightgreen;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  float: left;
+  padding: 3%;
+  margin-left: 1%;
+  max-height: auto;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+#div1{
+	width: 99%;
+	float: inline-block;
+	margin-top: 5%;
+}
+#div2{
+	display: inline-block;
+	width: 99%;
+	margin-top: 5%;
+}
+#div3
+{
+	width: 80%;
+	display: inline-block;
+	margin-top: 5%;
+}
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+	float: left;;
+	height: 350px;
+	width: 47%;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+		
+		</style>
+	</head>
+	<body >
+		{% if user['type'] == 'admin' %}
+			Vi ste admin nemate myprofile!
+		{% endif %}
+
+		{% if user['type'] == 'kupac' or user['type'] == 'prodavac'  %}
+		Email: {{user['username']}} </br>
+		Type: {{user['type']}}</br>
+		Ime : {{user['ime']}}</br>
+		Prezime: {{user['prezime']}}</br>
+		Adresa: {{user['adresa']}}</br>
+		Broj Kartice: {{user['brojkartice']}}</br>
+		Stanje na racunu: {{user['pare']}}din</br>
+
+		{% if user['type'] == 'kupac' %}
+			<form action = '/dodajpare' method = 'POST'>
+			<button type='submit' name='dugme' >Dodaj pare!</button>
+			</form>
+			
+			<h3>Kupljeni proizvodi</h3>
+				
+				{% for item2 in items2 %}
+				
+					<div class="card">
+						<img src = '/static/img/{{item2["name"]}}.png' onerror='this.style.display = "none";' width = '200' height = '200' alt = 'Slika prozivoda {{item2["name"]}} nije pronadjena!' /> <br> <br>
+						<a href = '/items/{{item2["id"]}}'> {{item2['name']}} </a><br><br>
+						Prodavac:<a href='/sellers/{{item2["id2"]}}'> {{item2['owner']}} </a><br>
+						<p >Cena:{{item2['price']}}din</p>
+						<p>Kolicina: {{item2['qtt']}}  </p>
+						<p>Vreme kupovine: {{item2['time']}} </p>
+					</div>
+				{% endfor %}
+			
+		{% endif%}
+		{% if user['type'] == 'prodavac' %}
+		Ime kompanije: {{user['kompanija']}}</br>
+		</br>
+
+		<div id="div3">
+		<div class="container">
+			<form action = '/dodaj-item' method = 'POST' enctype = 'multipart/form-data'>
+			  <label for="fname">Proizvod</label><br>
+			  <input type = 'text' name = 'name' /><br>
+		  
+			  <label for="lname">Cena</label><br>
+			  <input type = 'number' name = 'price' /><br>
+			  <label for="fname">Kolicina</label><br>
+			  <input type = 'number' name = 'qtt' /><br>
+		  
+			  <label for="subject">Opis</label><br>
+			  <input type = 'textarea' name = 'desc' /><br>
+			  <label for="fname">Slika</label><br>
+			  <input type = 'file' name = 'slika' style="margin-left: 15px;" /><br><br>
+			  <input type = 'submit' value = 'Dodaj proizvod!' />
+			</form>
+		  </div>
+
+		</div>
+
+
+		<h3 style="margin-left: 10%; font-size: 30px; color:red ">Prodati proizvodi</h3>
+				
+				{% for item3 in items3 %}
+				
+				
+				
+				<div class="card">
+					<img src = '/static/img/{{item3["name"]}}.png' onerror='this.style.display = "none";' width = '200' height = '200' alt = 'Slika prozivoda {{item3["name"]}} nije pronadjena!' /><br><br>
+					<a href = '/items/{{item3["id"]}}'> {{item3['name']}} </a>
+					<p >Cena:{{item3['price']}}din</p>
+					<p>Kupac: {{item3['buyer']}} </p>
+					<p>Kolicina: {{item3['qtt']}}  </p>
+					<p>Vreme kupovine: {{item3['time']}} </p>
+				</div>
+					{% endfor %}<br>
+
+					
+		
+		<div id="div2">
+			<h3 style="margin-left: 10%; font-size: 30px; color:red ">Svi vasi proizvodi</h3>
+		{% for item in items %}
+
+		<div class="card" style="height:auto ;">
+			<img src = '/static/img/{{item["name"]}}.png' onerror='this.style.display = "none";' width = '300' height = '200' alt = 'Slika prozivoda {{item["name"]}} nije pronadjena!' />	<br>	<br>
+			<a href = '/items/{{item["_id"]}}'> {{item['name']}}</a><br>
+			<p >Cena:{{item['price']}}din</p><br>
+			<p>Opis {{item['desc']}} </p><br>
+			<p>Kolicina: {{item['qtt']}}  </p><br>
+			<p>Poseta {{item['visits']}} </p><br>
+			<form action = '/dodajkolicinu' method = 'POST'>
+				Unesite kolicinu: <input type='number' name='kolicina'><br>
+				<input type = 'text' name = 'kojiitem' value="{{item['name']}}" hidden /><br>
+				<button type='submit' name='dugme2' >Dodaj kolicinu!</button>
+				</form> 
+				
+					<form action = '/izbrisi-item' method = 'POST'>
+					<input type = 'text' name = 'kojiitem' value="{{item['name']}}" hidden />
+					<button type='submit' name='dugme2' >Obrisi item!</button>
+					</form>
+					</div>
+				
+		{% endfor %}
+	</div>
+
+		</br>
+		
+		
+			
+			
+		  
+		
+		
+		{% endif %}
+		{% endif %}
+	</body>
+</html>

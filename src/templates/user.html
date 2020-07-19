@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title> Your Profile </title>
+		
+	</head>
+	<body>
+		{% if tuser == 'admin'%}
+			{% if user['type'] == 'prodavac' %}
+			Ime kompanije: {{user['kompanija']}}</br>
+			</br>
+			{% endif %}
+			Email: {{user['username']}} </br>
+			Type: {{user['type']}}</br>
+			{% if user['type'] == 'prodavac' or user['type'] == 'kupac' %}
+			Ime : {{user['ime']}}</br>
+			Prezime: {{user['prezime']}}</br>
+			Adresa: {{user['adresa']}}</br>
+			Broj Kartice: {{user['brojkartice']}}</br>
+			Stanje na racunu: {{user['pare']}}v$</br>
+			
+		{% else %}
+			Ovoj stranici mogu samo admini da pristupaju
+			
+		{% endif %}
+		<form action = '/izbrisi-korisnika' method = 'POST'>
+			<input type = 'text' name = 'ime' value="{{user['username']}}" hidden />
+			<input type = 'text' name = 'vrsta' value="{{user['type']}}" hidden />
+			<button type='submit' name='dugme2' >Obrisi korisnika!</button>
+			</form>
+		{% endif %}
+	</body>
+</html>

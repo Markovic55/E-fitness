@@ -1,0 +1,118 @@
+<html>
+	<head>
+		<title> Your Profile </title>
+				<style>
+		body{
+  background: darkkhaki;
+}
+		td {
+			border: solid thin black;
+		}
+		
+		th {
+			border: solid thin black;
+		}
+		
+		table {
+			border: solid thin black;
+			border-collapse: collapse;
+			
+		}
+		
+		.card {
+			background-color: gray;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  float: left;
+  padding: 3%;
+  margin-left: 1%;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+		
+		</style>
+	</head>
+	<body>
+		
+		<div class="card">
+		<img src="../static/img/{{item['name']}}.png" width="200px" height="200px"><br><br>
+		<p>Name: {{item['name']}} </p>
+		<p>Price: {{item['price']}}din </p>
+		<p>Description: {{item['desc']}} </p>
+		<p>Items left: {{item['qtt']}} </p>
+		<a href = '/sellers/{{prodavac["_id"]}}'> Seller page </a> </br>
+		<small> Visits: {{item['visits']}} </small> </br>
+		{% if user['username'] == item2['owner'] %}
+	</div>
+			
+			{% for item2 in items2 %}
+			<!-- <tr> <td> <a href = '/items/{{item2["id"]}}'> {{item2['name']}} </a> </td> <td> {{item2['price']}} v$ </td> <td> {{item2['qtt']}} </td> <td> </td><td>{{item2['time']}}</td> </tr>	 -->
+			<div class="card">
+			<p >Cena:{{item2['name']}}din</p>
+			<p>Opis: {{item2['price']}}  </p>
+			<p>Kolicina: {{item2['qtt']}}  </p>
+			<p>Vistis: {{item2['time']}}  </p>
+		</div>
+			{% endfor %}
+	
+		{% endif %}
+		{% if user['type'] == 'kupac' %}
+	
+		<form method = 'POST' action = '/kupi'>
+			<input type = 'text' name = 'kojiitem' value="{{item['name']}}" hidden />
+			Kolicina:<input type = 'number' name ='kolicina'> </br></br>
+			<button type='submit' name='dugme4' >Kupi item!</button>
+
+		</form>
+		{% endif %}
+		{% if user['type'] == 'admin' or user['type']== 'kupac' %}
+		<form method = 'POST' action = '/dodaj-komentar'>
+			<input type = 'text' name = 'kojiitem' value="{{item['name']}}" hidden />
+			<input type = 'text' name = 'kojiitem1' value="{{item['_id']}}" hidden />
+			Ostavi komentar: <br>
+			<input type = 'text' name = 'komentar' style="width: 100%;"> </br></br>
+			<button type='submit' name='dugme3' >Dodaj komentar!</button>
+		</form>
+		{% endif %}
+		
+		
+		{% for c in komentar %}
+			<hr>
+			Ime:{% if c['type']== 'admin'%}<strong>ADMN</strong>{% endif %} {{c['name']}} &nbsp;&nbsp; <small>{{c['time']}}</small><br>
+			<p>{{c['comment']}}</p><br>
+			<hr>
+			{% endfor %}
+			
+		
+		{% if user['type'] == 'admin' %}
+		<form action = '/izbrisi-item' method = 'POST'>
+			<input type = 'text' name = 'kojiitem' value="{{item['name']}}" hidden />
+			<button type='submit' name='dugme2' >Obrisi item!</button>
+		</form>
+		
+		{% endif %}
+	</body>
+		
+</html>

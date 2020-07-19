@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title> Registracija </title>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}">
+
+	</head>
+	<body>
+		<form action="/registerp" method="POST">
+		  <h2>Registracija</h2>
+		  <div class="input-container">
+		    <i class="fa fa-user icon"></i>
+		    <input class="input-field" type="text" placeholder="Ime" name="ime" required>
+		  </div>
+
+		  <div class="input-container">
+		    <i class="fa fa-user icon"></i>
+		    <input class="input-field" type="text" placeholder="Prezime" name="prezime" required>
+		  </div>
+
+		  <div class="input-container">
+		    <i class="fa fa-credit-card icon"></i>
+		    <input class="input-field" type="text" placeholder="Broj kartice" name="brojkartice" required>
+		  </div>
+
+		  <div class="input-container">
+		    <i class="fa fa-address-card icon"></i>
+		    <input class="input-field" type="text" placeholder="Adresa" name="adresa" required>
+		  </div>
+
+		  <div class="input-container">
+		    <i class="fa fa-envelope icon"></i>
+		    <input class="input-field" type="text" placeholder="Email" name="username" required>
+		  </div>
+
+		  <div class="input-container">
+		    <i class="fa fa-key icon"></i>
+		    <input class="input-field" type="password" placeholder="Password" name="password" required>
+		  </div>
+
+		  <div class="input-container">
+		    <i class="fa fa-building icon"></i>
+		    <input class="input-field" type="text" placeholder="Kompanija" name="kompanija" required>
+		  </div>
+
+		  <button type="submit" class="btn">Registruj se</button>
+	</body>
+
+</html>
