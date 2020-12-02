@@ -1,2 +1,2 @@
-# E-fitness
+#WebShopProject
 Python, MongoDB
